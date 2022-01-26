@@ -1,5 +1,11 @@
 # PIC16B-PROJECT: Emotion detection using facial recognization webapp
 
+## Team member from Group (BGS)
+
+- Jiaqi Li
+- Shurui Wang
+- Yi Zhang
+
 ## Abstract
 Our project addresses this problem:  
 **What can app developers do to improve their product given permission of camera use from the user?**  
