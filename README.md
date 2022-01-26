@@ -1,4 +1,3 @@
-# PIC16B-PROJECT
-o . X  
-. X .  
-o . o  
+# PIC16B-PROJECT: Emotion detection using facial recognization webapp
+
+
