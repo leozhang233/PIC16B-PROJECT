@@ -1,4 +1,4 @@
 # PIC16B-PROJECT
-o . .   
+o . X  
 . X .  
 . . o  
