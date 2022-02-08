@@ -3,24 +3,22 @@
 
 
 from flask import Flask, g, render_template, request
-
 import sklearn as sk
-import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import random
 
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-
 import io
 import base64
-
-
+from werkzeug.utils import secure_filename
+import os
+# from werkzeug.utils import secure_filename
 # Create web app, run with flask run
 # (set "FLASK_ENV" variable to "development" first!!!)
 
 app = Flask(__name__)
+UPLOAD_FOLDER = os.path.join('../static/uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Create main page (fancy)
 
@@ -37,12 +35,14 @@ def submit():
     else:
         try:
             # retrieve the image
-            img = request.files['image']
-            # img = np.loadtxt(img)
-            
-            # reshape into appropriate format for prediction
-            # x = img.reshape(8, 8)
-            
+            img = request.files["image"]
+            filename = secure_filename(img.filename)
+            # save image to our local desktop
+            img.save(os.path.join(app.root_path, "static/uploads", filename))
+            # get the image from that location
+            image = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+           
+
             # load up a pre-trained model and get a prediction
             # model = pickle.load(open("ed-model/model.pkl", 'rb'))
             # d = model.predict(x)[0]
@@ -50,27 +50,9 @@ def submit():
             ##############################################
             CLASS_LABELS  = ['anger', 'disgust', 'fear', 'happy', 'neutral', 'sadness', "surprise"]
             index = random.randint(0, 6)
-            label = CLASS_LABELS[index]
+            label = CLASS_LABELS[5]
 
-            # plot the image itself
-            # fig = Figure(figsize = (3, 3))
-            # ax = fig.add_subplot(1, 1, 1,)
-            # ax.imshow(img, cmap = "binary")
-            # ax.axis("off")
-            
-            # in order to show the plot on flask, we need to do a few tricks
-            # Convert plot to PNG image
-            # need to: 
-            # import io 
-            # import base64 
-            # pngImage = io.BytesIO()
-            # FigureCanvas(fig).print_png(pngImage)
-            
-            # Encode PNG image to base64 string
-            # pngImageB64String = "data:image/png;base64,"
-            # pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
-            
             # finally we can render the template with the prediction and image
-            return render_template('submit.html', labels=label, image=img)
+            return render_template('submit.html', labels=label, image = image)
         except:
             return render_template('submit.html', error=True)

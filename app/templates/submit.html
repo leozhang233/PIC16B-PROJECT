@@ -13,9 +13,9 @@
 
   {% if labels %}
     <br>
-    Thanks for the image!  It looks like you are {{labels}}
+    Thanks for the image!  It looks like you feel {{labels}}
     
-    {% if labels ==  "angry"%}
+    {% if labels ==  "anger"%}
       &#128544
     {% endif %}
     {% if labels ==  "disgust"%}
@@ -38,7 +38,7 @@
     {% endif %}
     .
     <br>
-    <img src="{{ image }}"/>
+    <img src="{{ image }}" alt="User Image" style="width:300px;height:250px">
   {% endif %}
 
   {% if error %}
