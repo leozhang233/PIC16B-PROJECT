@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Submit a File{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+      <label for="image">Please upload an image.</label><br>
+      <input type="file" name="image" id="image">
+      <input type="submit" value="Submit Image">
+  </form>
+
+  {% if labels %}
+    <br>
+    Thanks for the image!  It looks like you feel {{labels}}
+    
+    {% if labels ==  "anger"%}
+      &#128544
+    {% endif %}
+    {% if labels ==  "disgust"%}
+      &#129314
+    {% endif %}
+    {% if labels ==  "fear"%}
+      &#128561
+    {% endif %}
+    {% if labels ==  "happy"%}
+      &#128513
+    {% endif %}
+    {% if labels ==  "neutral"%}
+      &#128528
+    {% endif %}
+    {% if labels ==  "sadness"%}
+      &#128546
+    {% endif %}
+    {% if labels ==  "surprise"%}
+      &#128562
+    {% endif %}
+    .
+    <br>
+    <img src="{{ image }}" alt="User Image" style="width:300px;height:250px">
+  {% endif %}
+
+  {% if error %}
+    <br>
+    Oh no, we couldn't use that file!  Please upload an 8x8 numpy array as a text file.
+  {% endif %}
+
+  <br><br>
+  {% if (labels ==  "anger") or (labels ==  "disgust") 
+     or (labels ==  "fear") or (labels ==  "sadness")%}
+    We are so sorry about your {{labels}}. Would you mind receving a special and positive quote/video from us?<br>
+    <form method="post">
+      <input type="radio" name="answer" id="quote" value="quote">
+      <label for="quote">Quote</label>
+      <input type="radio" name="answer" id="video" value="video">
+      <label for="video">Video</label>
+      <input type="radio" name="answer" id="no" value="no">
+      <label for="no">No thanks</label>
+      <br>
+      <input type="button" value="Submit">
+    </form>
+    {% endif %}
+  {% if labels ==  "happy"%}
+    We are glad that you're feeling happy. Would you mind receving a special and positive quote/video from us to make you extra joyful?<br>
+    <form method="post">
+      <input type="radio" name="answer" id="quote" value="quote">
+      <label for="quote">Quote</label>
+      <input type="radio" name="answer" id="video" value="video">
+      <label for="video">Video</label>
+      <input type="radio" name="answer" id="no" value="no">
+      <label for="no">No thanks</label>
+      <br>
+      <input type="button" value="Submit">
+    </form>
+  {% endif %}
+  {% if (labels ==  "neutral") or (labels ==  "surprise")%}
+    Thank you for using our webapp. Your comments would be greatly appreciated!<br>
+    <form method="post">
+      <br>Comment below:<br>
+      <input comment="comment" id="comment">
+      <br>
+      <input type="button" value="Submit">
+    </form>
+    {% endif %}
+
+    <br><br>
+    {% if writers %}
+      Here's the quote we prepared for you:<br>
+      <em style="color:DodgerBlue;">{{texts}}</em> --------- <strong>{{writers}}</strong>
+      <br>
+    {% endif %}
+
+{% endblock %}

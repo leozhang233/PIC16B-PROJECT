@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Upload an Image{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+      <label for="image">Please upload an image.</label><br>
+      <input type="file" name="image" id="image">
+      <input type="submit" value="Submit Image">
+  </form>
+
+  {% if error %}
+    <br>Oh no, we couldn't use that file!  Please upload an 8x8 numpy array as a text file.
+  {% endif %}
+
+{% endblock %}

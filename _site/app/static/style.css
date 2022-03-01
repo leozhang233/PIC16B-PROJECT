@@ -1,6 +1,6 @@
 html {
-    font-family: Cursive;
-    background: #8BB8E8;
+    font-family: sans-serif;
+    background: AntiqueWhite;
     padding: 1rem;
 }
 
@@ -11,15 +11,14 @@ body {
 
 h1 {
     color: rgb(0, 0, 0);
-    font-family: serif;
-    font-style: oblique;
+    font-family: sans-serif;
     margin: 1rem 0;
     text-align: center;
 }
 
 a {
     color: CornflowerBlue;
-    text-decoration: overline;
+    text-decoration: none;
 }
 
 hr {
@@ -28,7 +27,7 @@ hr {
 }
 
 nav {
-    background: #FFFAF0;
+    background: AntiqueWhite;
     padding: 0 0.5rem;
     border-radius: 25px;
 }
@@ -47,7 +46,7 @@ nav ul li a {
 
 .content {
     padding: 0 1rem 1rem;
-    background: #FFC72C;
+    background: white;
     border-radius: 25px;
 }
 

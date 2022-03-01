@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Submit a File{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  
+  {% if labels %}
+    Thanks for the image!  It looks like you're feeling {{labels}}
+    {% if labels ==  "anger"%}
+      &#128544
+    {% endif %}
+    {% if labels ==  "disgust"%}
+      &#129314
+    {% endif %}
+    {% if labels ==  "fear"%}
+      &#128561
+    {% endif %}
+    {% if labels ==  "happy"%}
+      &#128513
+    {% endif %}
+    {% if labels ==  "neutral"%}
+      &#128528
+    {% endif %}
+    {% if labels ==  "sadness"%}
+      &#128546
+    {% endif %}
+    {% if labels ==  "surprise"%}
+      &#128562
+    {% endif %}
+    .<br>
+    <img src="{{ image }}" alt="User Image" style="width:300px;height:250px">
+  {% endif %}
+
+  <br><br>
+  {% if (labels ==  "anger") or (labels ==  "disgust") or (labels ==  "fear") or (labels ==  "sadness")%}
+    <form method="post">
+      Does our prediction match your actual feeling?
+      <br> --- If <b>true</b>, we are so sorry about your {{labels}}. Would you mind receving a special gift (quote/video) to help calm you down?<br>
+      --- If <b>false</b>, would you like to provide some feedback about your actual feeling to help us improve our model better?<br><br>
+      <input type="radio" name="ans" id="neg-true" value="neg-true">
+      <label for="neg-true">True.</label><br>
+      <input type="radio" name="ans" id="neg-quote" value="neg-quote">
+      <label for="neg-quote">True. I would like to have a quote.</label><br>
+      <input type="radio" name="ans" id="neg-video" value="neg-video">
+      <label for="neg-video">True. I would like to have a video.</label><br>
+      <input type="radio" name="ans" id="neg-no" value="neg-no">
+      <label for="neg-no">False.</label><br>
+      <input type="radio" name="ans" id="feedback" value="feedback">
+      <label for="feedback">False. But I would like to leave a feedback!</label><br>
+      <input type="submit" value="Submit">
+    </form>
+  {% endif %}
+
+  {% if labels ==  "happy"%}
+    <form method="post">
+      Does our prediction match your actual feeling?
+      <br> --- If <b>true</b>, we are so glad about your {{labels}}. Would you mind receving a special gift (quote/video) to make you gain more happiness?<br>
+      --- If <b>false</b>, would you like to provide some feedback about your actual feeling to help us improve our model better?<br><br>
+      <input type="radio" name="ans" id="pos-true" value="pos-true">
+      <label for="pos-true">True.</label><br>
+      <input type="radio" name="ans" id="pos-quote" value="pos-quote">
+      <label for="pos-quote">True. I would like to have a quote.</label><br>
+      <input type="radio" name="ans" id="pos-video" value="pos-video">
+      <label for="pos-video">True. I would like to have a video.</label><br>
+      <input type="radio" name="ans" id="pos-no" value="pos-no">
+      <label for="pos-no">False.</label><br>
+      <input type="radio" name="ans" id="feedback" value="feedback">
+      <label for="feedback">False. But I would like to leave a feedback!</label><br>
+      <input type="submit" value="Submit">
+    </form>
+  {% endif %}
+
+  {% if (labels ==  "neutral") or (labels ==  "surprise")%}
+    Does our prediction match your actual feeling?
+    <br> --- If <b>true</b>, thank you for using our webapp!<br>
+    --- If <b>false</b>, would you like to provide some feedback about your actual feeling to help us improve our model better?<br><br>
+    <form method="post">
+      <input type="radio" name="ans" id="neu-true" value="neu-true">
+      <label for="neu-true">True.</label><br>
+      <input type="radio" name="ans" id="neu-no" value="neu-no">
+      <label for="neu-no">False.</label><br>
+      <input type="radio" name="ans" id="feedback" value="feedback">
+      <label for="feedback">False. But I would like to leave a feedback!</label><br>
+      <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+
+{% endblock %}

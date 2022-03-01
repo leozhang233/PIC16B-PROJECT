@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Quote{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    {% if writers %}
+        <b>{{texts}}</b> ------ <strong>{{writers}}</strong>
+    {% endif %}
+{% endblock %}
