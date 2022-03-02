@@ -11,10 +11,19 @@ import io
 import base64
 from werkzeug.utils import secure_filename
 import os
+import tensorflow as tf
+import keras
+# from keras.models import load_model
+from keras.preprocessing import image
+from numpy import expand_dims
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join('../static/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# Load the model
+
+model = tf.keras.models.load_model("ed-model/InceptionV3_Ver2.h5")
 
 # Create main page (fancy)
 @app.route('/')
@@ -31,7 +40,7 @@ def upload():
         try:
             # retrieve the image
             img = request.files["image"]
-            # filename = secure_filename(img.filename)
+            # filename = secure_filename("img.png")
             filename = "img"
             # save image to our local desktop
             img.save(os.path.join(app.root_path, "static/uploads", filename))
@@ -44,12 +53,25 @@ def result():
     if request.method == 'GET':
         filename = "img"
         # read the image
-        image = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        img = image.load_img(os.path.join(app.root_path, "static/uploads", filename), target_size=(144,144))
+
+        data  = image.img_to_array(img)
+        # convert to numpy array
+
+        # expand dimension to one sample
+        samples = expand_dims(data, 0)
+
+        # create image data augmentation generator
+        preprocess_fun = tf.keras.applications.inception_v3.preprocess_input
+        datagen = ImageDataGenerator(rescale = 1./255,
+                                        preprocessing_function=preprocess_fun)
+        it = datagen.flow(samples, batch_size=1)
+
         CLASS_LABELS  = ['anger', 'disgust', 'fear', 'happy', 'neutral', 'sadness', "surprise"]
-        index = 4
+        index = np.argmax(model.predict(it), axis = 1)[0]
         label = CLASS_LABELS[index]
 
-        return render_template('result.html', image = image, labels = label)
+        return render_template('result.html', image = img, labels = "happy")
     else:
         try:
             if request.form['ans'] == "neg-quote":
