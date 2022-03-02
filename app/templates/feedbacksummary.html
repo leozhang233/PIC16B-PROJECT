@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+<p><h2><strong>Some Feedback</strong></h2></p>
+
+{% for index, row in messages.iterrows() %}
+<strong>{{ row[2]}}</strong><br>
+--<em>{{row[1]}}</em><br>
+<br>
+{% endfor %}
+</center>
+
+{% if error %}
+<br>Sorry, we don't have any feedback from the users right now. 
+{% endif %}
+
+
+{% endblock %}
+  

@@ -5,8 +5,25 @@
 {% endblock %}
 
 {% block content %}
-  feedback here: ......................
+<center>
+    <form method="post">
+        <label for="message">Your feedback: </label><br>
+        <input name="message">
+        <br>
+        <label for="message">Your name or handle: </label><br>
+        <input name="handle">
+        <br>
+        <input type="submit" value="Submit form">
+    </form>
+  </center>
 
+  {% if thanks %}
+   Thank you for submitting feedback!
+  {% endif %}
+
+  {% if error %}
+  <br>Sorry, we are unable to upload your feedback. Please check your internet connection.
+  {% endif %}
 
 
 {% endblock %}

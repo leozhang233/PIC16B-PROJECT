@@ -4,6 +4,7 @@
 from flask import Flask, g, render_template, request, redirect, url_for
 import sklearn as sk
 import numpy as np
+import sqlite3
 import pickle
 import random
 import pandas as pd
@@ -25,6 +26,55 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 model = tf.keras.models.load_model("ed-model/InceptionV3_Ver2.h5")
 
+def get_message_db():
+    # Check whether there is a database called message_db in the g attribute of the app
+    if 'message_db' not in g:
+        #  If not, then connect to that database, ensuring that the connection is an attribute of g
+        g.message_db = sqlite3.connect("messages_db.sqlite")
+
+    if g.message_db is not None:
+        cursor = g.message_db.cursor()
+        # Check whether a table called messages exists in message_db, and create it if not
+        sql_create_messages_table = """ CREATE TABLE IF NOT EXISTS messages (
+                                    id integer,
+                                    handle text,
+                                    messages text
+                                ); """
+        cursor.execute(sql_create_messages_table)
+    # Return the connection
+    return g.message_db
+
+
+def insert_message(request):
+    # open the connection
+    g.message_db = get_message_db()
+    cursor = g.message_db.cursor()
+    # Extract message and handle
+    message = request.form["message"]
+    handle = request.form["handle"]
+    
+    # get nrow and assign unique id
+    n_row = cursor.execute('select * from messages;')
+    nrow = len(n_row.fetchall()) + 1
+    
+    # add a new row to messages database
+    cursor.execute("INSERT INTO messages (id, handle, messages) VALUES ({nrow}, '{handle}', '{message}')".format(
+        nrow = nrow, handle = handle, message = message))
+    # Save the change
+    g.message_db.commit()
+    # close the connection
+    g.message_db.close()
+
+
+def random_messages(n):
+    # open the connection
+    g.message_db = get_message_db()
+    # Get a collection of n random messages from the message_db, or fewer if necessary
+    messages = pd.read_sql_query("SELECT * FROM messages WHERE id IN (SELECT id FROM messages ORDER BY RANDOM() LIMIT {n})".format(n = n), g.message_db)
+    # close the connection
+    g.message_db.close()
+    return messages
+
 # Create main page (fancy)
 @app.route('/')
 def main():
@@ -40,8 +90,8 @@ def upload():
         try:
             # retrieve the image
             img = request.files["image"]
-            # filename = secure_filename("img.png")
-            filename = "img"
+            # filename = secure_filename("img")
+            filename = "img.jpg"
             # save image to our local desktop
             img.save(os.path.join(app.root_path, "static/uploads", filename))
             return redirect('/result')
@@ -51,7 +101,8 @@ def upload():
 @app.route('/result/', methods=['POST', 'GET'])
 def result():
     if request.method == 'GET':
-        filename = "img"
+        filename = "img.jpg"
+        img1 = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         # read the image
         img = image.load_img(os.path.join(app.root_path, "static/uploads", filename), target_size=(144,144))
 
@@ -71,7 +122,7 @@ def result():
         index = np.argmax(model.predict(it), axis = 1)[0]
         label = CLASS_LABELS[index]
 
-        return render_template('result.html', image = img, labels = "happy")
+        return render_template('result.html', image = img1, labels = label)
     else:
         try:
             if request.form['ans'] == "neg-quote":
@@ -91,8 +142,40 @@ def result():
                 text = getonequote['quote']
                 return render_template('quote.html', writers = writer, texts = text)
             elif request.form['ans'] == "feedback":
-                return render_template('feedback.html')
+                return redirect(url_for('feedback'))
+            ########## Need to add pos-video and neg-video
+            else:
+                return render_template('thanks.html')
         except:
             return render_template('result.html', error=True)
 
+@app.route('/feedback/', methods=['POST', 'GET'])
+def feedback():
+    if request.method == 'GET':
+        return render_template('feedback.html')
+    else: # if request.method == 'POST'
+        try:
+            insert_message(request)
+            return render_template('feedback.html', thanks = True)
+        except:
+            return render_template('feedback.html', error = True)
+            
 
+@app.route('/feedbacksummary/')
+def feedbacksummary():
+    try:
+        messages = random_messages(5)
+        return render_template('feedbacksummary.html', messages = messages)
+    except:
+        return render_template('feedbacksummary.html', error = True)
+
+@app.after_request
+def add_header(response):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    return response
