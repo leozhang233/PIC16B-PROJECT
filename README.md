@@ -2,9 +2,9 @@
 
 ## Team member from Group (BGS)
 
-- Jiaqi Li
-- Shurui Wang
-- Yi Zhang
+- [Jiaqi Li](https://github.com/jqlaura)
+- [Shurui Wang](https://github.com/JadenWSR)
+- [Yi Zhang](https://github.com/leozhang233)
 
 ## Abstract
 Our project addresses this problem:  
