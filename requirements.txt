@@ -1,0 +1,9 @@
+tensorflow-cpu==2.6.0
+pandas==1.3.4
+numpy==1.19.5
+keras==2.6.0
+mysql-connector-python==8.0.26
+pickleshare==0.7.5
+Werkzeug==2.0.3
+gunicorn==20.1.0
+flask==2.0.3

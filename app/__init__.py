@@ -2,7 +2,6 @@
 # $ export FLASK_ENV=development; flask run
 
 from flask import Flask, g, render_template, request, redirect, url_for
-import sklearn as sk
 import numpy as np
 import sqlite3
 import pickle
