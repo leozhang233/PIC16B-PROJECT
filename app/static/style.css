@@ -17,9 +17,48 @@ h1 {
     text-align: center;
 }
 
+VT {
+    font-size: 2em;
+    color: rgb(0, 0, 0);
+    font-family: Fantasy;
+    font-style: oblique;
+    margin: 1rem 0;
+    overflow-wrap: break-word;
+}
+
+.button {
+    background-color: CornflowerBlue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+.button1 {
+    background-color: rgb(228, 36, 218);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
 a {
     color: CornflowerBlue;
     text-decoration: overline;
+}
+
+a.name {
+    color: rgb(12, 52, 160);
+    text-decoration: none;
 }
 
 hr {

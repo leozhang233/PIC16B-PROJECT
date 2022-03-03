@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Video{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    {% if link %}
+        <VT>{{title}}</strong></VT>
+        <iframe src={{link}} width="853" height="480" frameborder="0" allowfullscreen></iframe>
+        <center>Thank you for using our Webapp! To startover, click here:
+        <form action="{{ url_for('upload') }}">
+          <button class = "button" type="submit">Start Again!</button>
+        </form>
+        </center>
+    {% endif %}
+{% endblock %}

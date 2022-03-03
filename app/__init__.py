@@ -125,16 +125,16 @@ def result():
     else:
         try:
             if request.form['ans'] == "neg-quote":
-                df1 = pd.read_csv("calm.csv")
-                df2 = pd.read_csv("relax.csv")
+                df1 = pd.read_csv("Quote_scraper/calm.csv")
+                df2 = pd.read_csv("Quote_scraper/relax.csv")
                 df = pd.concat([df1, df2])
                 getonequote = df.iloc[random.randint(0, df.shape[0])]
                 writer = getonequote['author']
                 text = getonequote['quote']
                 return render_template('quote.html', writers = writer, texts = text)
             elif request.form['ans'] == "pos-quote":
-                df1 = pd.read_csv("fun.csv")
-                df2 = pd.read_csv("happy.csv")
+                df1 = pd.read_csv("Quote_scraper/fun.csv")
+                df2 = pd.read_csv("Quote_scraper/happy.csv")
                 df = pd.concat([df1, df2])
                 getonequote = df.iloc[random.randint(0, df.shape[0])]
                 writer = getonequote['author']
@@ -142,7 +142,20 @@ def result():
                 return render_template('quote.html', writers = writer, texts = text)
             elif request.form['ans'] == "feedback":
                 return redirect(url_for('feedback'))
-            ########## Need to add pos-video and neg-video
+            elif request.form['ans'] == "pos-video":
+                df = pd.read_csv("Youtube_scraper/funny.csv")
+                getonequote = df.iloc[random.randint(0, df.shape[0])]
+                link = getonequote['link']
+                link = link.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/")
+                title = getonequote['title']
+                return render_template('video.html', link = link, title = title)
+            elif request.form['ans'] == "neg-video":
+                df = pd.read_csv("Youtube_scraper/relax.csv")
+                getonequote = df.iloc[random.randint(0, df.shape[0])]
+                link = getonequote['link']
+                link = link.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/")
+                title = getonequote['title']
+                return render_template('video.html', link = link, title = title)
             else:
                 return render_template('thanks.html')
         except:

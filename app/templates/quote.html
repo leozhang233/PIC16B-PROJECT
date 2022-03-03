@@ -6,6 +6,12 @@
 
 {% block content %}
     {% if writers %}
-        <b>{{texts}}</b> ------ <strong>{{writers}}</strong>
-    {% endif %}
+        <b>{{texts}}</b> ------ <strong>{{writers}}</strong><br /> 
+        <br /> 
+        <center>Thank you for using our Webapp! To startover, click here:
+          <form action="{{ url_for('upload') }}">
+            <button class = "button" type="submit">Start Again!</button>
+          </form>
+          </center>
+      {% endif %}
 {% endblock %}
