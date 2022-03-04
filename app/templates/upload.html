@@ -10,7 +10,22 @@
       <input type="file" name="image" id="image">
       <input type="submit" value="Submit Image">
   </form>
-
+  
+  <br>
+  Requirements:
+  <ol>
+    <li>Submit a square image.</li>
+    <li>Use a clear image of your face. Do not use filters commonly used on social media.</li>
+    <li>Make sure your face is in the middle of the image.</li>
+  </ol>
+  <br>
+  Example image:
+  <br>
+  <center>
+  <img src={{ url_for('static', filename='example.jpg') }} alt="Example Image" style="width:300px;height:250px">
+  </center>
+  *Image downloaded from:
+  <a class = "name" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fjustadudewhohacks%2Fface-api.js%2F&psig=AOvVaw3kpDrAHnZ7bopdLoFwTkaS&ust=1646517275194000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNjVv_y4rfYCFQAAAAAdAAAAABAD">This Website</a> 
   {% if error %}
     <br>Oh no, we couldn't use that file!  Please upload an 8x8 numpy array as a text file.
   {% endif %}
