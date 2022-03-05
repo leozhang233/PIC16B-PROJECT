@@ -44,15 +44,19 @@ def get_message_db():
     # Return the connection
     return g.message_db
 
-
 def insert_message(request):
     # open the connection
     g.message_db = get_message_db()
     cursor = g.message_db.cursor()
     # Extract message and handle
     message = request.form["message"]
+    message = message.replace("'", "''")
     handle = request.form["handle"]
     
+    if handle == "":
+        handle = "Anonymous"
+    handle = handle.replace("'", "''")
+
     # get nrow and assign unique id
     n_row = cursor.execute('select * from messages;')
     nrow = len(n_row.fetchall()) + 1
@@ -197,7 +201,7 @@ def feedback():
 @app.route('/feedbacksummary/')
 def feedbacksummary():
     try:
-        messages = random_messages(5)
+        messages = random_messages(10)
         return render_template('feedbacksummary.html', messages = messages)
     except:
         return render_template('feedbacksummary.html', error = True)
