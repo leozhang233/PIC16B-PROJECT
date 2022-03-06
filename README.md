@@ -42,10 +42,12 @@ The tools and skills we required are:
 - Sklearn (preprocessing, confusion matrix, etc.)
 - Pandas + Numpy (data analysis)
 - GitHub (software collaboration)
+- OpenCV (Face Recognition)
 
+How we trained the machine learning model with Tensorflow InceptionV3 can be found [here](https://www.kaggle.com/jadenwsr/emotion-detection-with-inceptionv3/notebook).
 
 ## What You Will Learn
-By completing this project, we will learn how to train a TensorFlow model to categorize each face based on the emotion shown in the facial expression in one of the categories, such as happy, unhappy, neutral, and so forth. After we finish optimizing this machine learning model, we will learn how to transfer this functionality to a visually rich webapp. We will also learn how to extract information from more complex websites. Last but not least, every member of our team will learn how to work with others and handle issues that only arise in groups. In the end, all of us will develop strong teamwork skills.
+By completing this project, we will learn how to use OpenCV to do facial recognition, train a TensorFlow model to categorize each face based on the emotion shown in the facial expression in one of the categories, such as happy, unhappy, neutral, and so forth. After we finish optimizing this machine learning model, we will learn how to transfer this functionality to a visually rich webapp. We will also learn how to extract information from more complex websites. Last but not least, every member of our team will learn how to work with others and handle issues that only arise in groups. In the end, all of us will develop strong teamwork skills.
 
 ## Risks
 Firstly, we assume that the image uploaded by the user is "correct" in the sense that it can be understood by our model. For example, if the photo is blurry or contains multiple faces (or even no faces), it might lead to unsuccessfully recognization. The size, color, and format of the input might also affect our outcome. Then it may require slightly more complicated skills in webapp building and input processing, which we don’t currently have.  
