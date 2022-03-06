@@ -7,32 +7,37 @@
 {% block content %}
   
   {% if labels %}
-    Thanks for the image!  It looks like you're feeling {{labels}}
-    {% if labels ==  "anger"%}
-      &#128544
-    {% endif %}
-    {% if labels ==  "disgust"%}
-      &#129314
-    {% endif %}
-    {% if labels ==  "fear"%}
-      &#128561
-    {% endif %}
-    {% if labels ==  "happy"%}
-      &#128513
-    {% endif %}
-    {% if labels ==  "neutral"%}
-      &#128528
-    {% endif %}
-    {% if labels ==  "sadness"%}
-      &#128546
-    {% endif %}
-    {% if labels ==  "surprise"%}
-      &#128562
-    {% endif %}
-    .<br>
-    <img src="{{image}}" alt="User Image" style="width:300px;height:250px">
+    <center>
+      Thanks for the image!  It looks like you're feeling {{labels}}
+      {% if labels ==  "anger"%}
+        &#128544
+      {% endif %}
+      {% if labels ==  "disgust"%}
+        &#129314
+      {% endif %}
+      {% if labels ==  "fear"%}
+        &#128561
+      {% endif %}
+      {% if labels ==  "happy"%}
+        &#128513
+      {% endif %}
+      {% if labels ==  "neutral"%}
+        &#128528
+      {% endif %}
+      {% if labels ==  "sadness"%}
+        &#128546
+      {% endif %}
+      {% if labels ==  "surprise"%}
+        &#128562
+      {% endif %}.
+    </center>
     <br><br>
-    <img src="{{image1}}" alt="Detected Image" style="width:300px;height:250px">
+    <center>
+      Original Image Processed (left hand side) &nbsp&nbsp&nbsp Facial Image Captured (right hand side)<br>
+      <img src="{{image1}}" alt="User Image" style="width:300px;height:250px">
+      &nbsp&nbsp&nbsp&nbsp
+      <img src="{{image}}" alt="Detected Image" style="width:300px;height:250px">
+    </center>
   {% endif %}
 
   <br><br>

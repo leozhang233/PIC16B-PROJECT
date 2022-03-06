@@ -12,22 +12,40 @@
   </form>
   
   <br>
-  Requirements:
+  Instuction:
   <ol>
-    <li>Submit a square image.</li>
-    <li>Use a clear image of your face. Do not use filters commonly used on social media.</li>
-    <li>Make sure your face is in the middle of the image.</li>
+    Just submit an image of a single person regardless of race, ethnicity, age, and sex!
   </ol>
   <br>
-  Example image:
-  <br>
-  <center>
-  <img src={{ url_for('static', filename='example.jpg') }} alt="Example Image" style="width:300px;height:250px">
-  </center>
-  *Image downloaded from:
-  <a class = "name" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fjustadudewhohacks%2Fface-api.js%2F&psig=AOvVaw3kpDrAHnZ7bopdLoFwTkaS&ust=1646517275194000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNjVv_y4rfYCFQAAAAAdAAAAABAD">This Website</a> 
+  Note:
+  <ol>
+    <li>
+      For the better result, we would suggest that your face is clear front facing in the middle of the image with a plain background. Do not use filters commonly used on social media.
+    </li><br>
+    Example image:
+    <br>
+    <img src={{ url_for('static', filename='white.jpg') }}  style="width:200px;height:200px">
+    <img src={{ url_for('static', filename='black.jpg') }}  style="width:200px;height:200px">
+    <img src={{ url_for('static', filename='latino.jpg') }}  style="width:200px;height:200px">
+    <img src={{ url_for('static', filename='asian.jpg') }}  style="width:200px;height:200px">
+    <br>
+    *Image downloaded from one of the best free AI face generated site.
+    <a class = "name" href="https://generated.photos">Generated Photos</a><br><br><br>
+    <li>
+      If you don't have such photo described above, we still try to have your back as much as we can using our facial extraction feature!
+    </li><br>
+    Example:<br>
+    The image you uploaded (left hand side) &nbsp&nbsp------>&nbsp&nbsp Your lovely face we extracted (right hand side)<br>
+    <img src={{ url_for('static', filename='img.jpg') }} alt="Original Image" style="width:300px;height:250px">
+    &nbsp&nbsp------>&nbsp&nbsp
+    <img src={{ url_for('static', filename='face.jpg') }} alt="Facial Image captured" style="width:300px;height:250px">
+    <br>
+    *Image downloaded from
+    <a class = "name" href="https://unsplash.com/s/photos/happy-face">here</a><br>
+  </ol>
+
   {% if error %}
-    <br>Oh no, we couldn't use that file!  Please upload an 8x8 numpy array as a text file.
+  <br>Oh no, we couldn't use that file!  Please upload an 8x8 numpy array as a text file.
   {% endif %}
 
 {% endblock %}
