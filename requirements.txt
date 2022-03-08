@@ -7,3 +7,4 @@ pickleshare==0.7.5
 Werkzeug==2.0.3
 gunicorn==20.1.0
 flask==2.0.3
+opencv-python
