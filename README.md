@@ -19,12 +19,15 @@ Note:
 - If you have encountered this error: **AssertionError: Duplicate registrations for type 'experimentalOptimizer'**, please uninstall keras, tensorboard, tensorflow, tensorflow-gpu if it's installed, tb-nightly, keras-nightly, tf-nightly from your computer, then re-install them all and try again.
 
 
-## Webapp overview and demonstration of the functionality
+## Webapp overview
 To briefly explain what our Webapp does, it contains a machine learning model for emotion detection using facial recognition and provide some recommendations to our users.
 This webapp should be a demo or a testing function for future app developers, since we will need the user to upload a selfie themselves instead of using the build-in camera to capture the user's facial expressions. With just one selfie uploaded by the user, we will be able to present different outcomes to the user according to the deteched emotion.
 
 In order to make the whole process interactive, our webapp asks the user to submit a selfie of themselves, and the built-in model will recognize their emotion in the photo and make a recommendation accordingly. Now I will introduce the detailed functions of our webapp.
 
+
+
+## Demonstration of webapp functionality
 On the main page we have our project overview that specifies what will be achieved in this project. This part is basically the same as our project proposal, used to give the user a sense of what the app is doing.
 
 ![main_page.png](/images/main_page.png)
