@@ -120,6 +120,7 @@ def result():
         for (x, y, w, h) in faces:
             cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
             faces = img[y:y + h, x:x + w]
+            # save the original image with rectangle
             cv2.imwrite(os.path.join(app.root_path, "static/uploads", "face.jpg"), faces)
             
         # detected image
@@ -149,33 +150,42 @@ def result():
         return render_template('result.html', image = face, labels = label, image1 = detected)
     else:
         try:
+            # if user's emotion is predicted as negative and a quote is requested
             if request.form['ans'] == "neg-quote":
                 df1 = pd.read_csv("Quote_scraper/calm.csv")
                 df2 = pd.read_csv("Quote_scraper/relax.csv")
                 df = pd.concat([df1, df2])
+                # randomly select a quote from a combined df
                 getonequote = df.iloc[random.randint(0, df.shape[0])]
                 writer = getonequote['author']
                 text = getonequote['quote']
                 return render_template('quote.html', writers = writer, texts = text)
+            # if user's emotion is predicted as positive and a quote is requested
             elif request.form['ans'] == "pos-quote":
                 df1 = pd.read_csv("Quote_scraper/fun.csv")
                 df2 = pd.read_csv("Quote_scraper/happy.csv")
                 df = pd.concat([df1, df2])
+                # randomly select a quote from a combined df
                 getonequote = df.iloc[random.randint(0, df.shape[0])]
                 writer = getonequote['author']
                 text = getonequote['quote']
                 return render_template('quote.html', writers = writer, texts = text)
+            # if a feedback is requested
             elif request.form['ans'] == "feedback":
                 return redirect(url_for('feedback'))
+            # if user's emotion is predicted as positive and a video is requested
             elif request.form['ans'] == "pos-video":
                 df = pd.read_csv("Youtube_scraper/funny.csv")
+                # randomly select a funny video
                 getonequote = df.iloc[random.randint(0, df.shape[0])]
                 link = getonequote['link']
                 link = link.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/")
                 title = getonequote['title']
                 return render_template('video.html', link = link, title = title)
+            # if user's emotion is predicted as negative and a video is requested
             elif request.form['ans'] == "neg-video":
                 df = pd.read_csv("Youtube_scraper/relax.csv")
+                # randomly select a relaxing video
                 getonequote = df.iloc[random.randint(0, df.shape[0])]
                 link = getonequote['link']
                 link = link.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/")
